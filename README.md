@@ -1,4 +1,4 @@
-# gettext-handlebars [![build status](https://secure.travis-ci.org/smhg/gettext-handlebars.png)](http://travis-ci.org/smhg/gettext-handlebars)
+# gettext-nunjucks [![build status](https://secure.travis-ci.org/ministryofprogramming/gettext-nunjucks.png)](http://travis-ci.org/ministryofprogramming/gettext-nunjucks)
 
 Extract translatable strings from [Nunjucks](https://github.com/mozilla/nunjucks) template strings.
 
