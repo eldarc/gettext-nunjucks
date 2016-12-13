@@ -1,0 +1,40 @@
+{
+  "name": "gettext-nunjucks",
+  "version": "0.0.1",
+  "description": "Extract translatable strings from Nunjucks templates",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint index.js test",
+    "test": "mocha",
+    "preversion": "npm run lint && npm test",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ministryofprogramming/gettext-nunjucks.git"
+  },
+  "keywords": [
+    "nunjucks",
+    "gettext",
+    "njk",
+    "i18n",
+    "translate",
+    "translation"
+  ],
+  "author": "Ministry of Programming",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ministryofprogramming/gettext-nunjucks/issues"
+  },
+  "homepage": "https://github.com/ministryofprogramming/gettext-nunjucks/gettext-swig",
+  "devDependencies": {
+    "eslint": "^3.12.1",
+    "mocha": "^2.0.1"
+  },
+  "dependencies": {
+    "nunjucks": "^3.0.0"
+  }
+}

@@ -1,0 +1,51 @@
+{% block firstBlockTest %}
+{{_("First Block Test")}}
+{% endblock %}
+
+{% for i in [1,2,3,4,5] %}
+  {{ ngettext('%d forLoopTest', '%d forLoopTests', i) }}
+{% endfor %}
+
+{% asyncEach item in items %}
+  {{gettext('asyncEach Test')}}
+{% endeach %}
+
+{% asyncAll item in items %}
+  {{gettext('asyncAll Test')}}
+{% endall %}
+
+{% macro field(name, value='', type='text') %}
+<div class="field">
+  <input type="{{ type }}" name="{{ name }}"
+         value="{{ ngettext('%d macro', '%d macroPlural', 2) | capitalize | replace('macro', 'day') }}" />
+</div>
+{% endmacro %}
+
+{% set username = "Joe" %}
+{% set username_display = _('Welcome back, %(gt_username)!', gt_username=username) %}
+{{ username_display }}
+
+{% block itemTest %}
+{{ _('The name of the item is: %(item_name)', item_name = itemTest.name) }}
+{% endblock %}
+
+{% raw %}
+{{ gettext('This is just plain text.') }}
+{% endraw %}
+
+{{ foo(1, 2, bar=_('Foo Bar'), baz=ngettext('%d bar', '%d foo', 4)) }}
+
+{# Nunjucks comment: gettext('Nunjucks comments are not parsed.') #}
+<!-- HTML Comment: {{ gettext('HTML comments are parsed.') }} -->
+
+First day of week: {{ _('week_start_hack') + 1 }}
+
+{% if gettext("Test String Comparison") == "Test" %}
+  Just testing.
+{% endif %}
+
+{% if _('True') and _('False') %}...{% endif %}
+
+{{ baz(foo if foo else gettext('If Expression Test')) }}
+
+{{ "true" if gettext('Foo True') }}
