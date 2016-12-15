@@ -24,7 +24,10 @@
     "translate",
     "translation"
   ],
-  "author": "Ministry of Programming",
+  "author": "Eldar Cejvanovic",
+  "contributors": [
+    "Sam Hauglustaine"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ministryofprogramming/gettext-nunjucks/issues"
