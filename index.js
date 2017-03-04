@@ -2,7 +2,7 @@
 
 var nunjucks = require('nunjucks');
 var nunjucksMarkdown = require('nunjucks-markdown');
-const marked = require('marked')
+var marked = require('marked')
 
 /**
  * Constructor
