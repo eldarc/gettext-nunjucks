@@ -1,6 +1,8 @@
 'use strict';
 
 var nunjucks = require('nunjucks');
+var nunjucksMarkdown = require('nunjucks-markdown');
+var marked = require('marked')
 
 /**
  * Constructor
@@ -12,43 +14,7 @@ function Parser (keywordSpec) {
     return new Parser(keywordSpec);
   }
 
-  // default JavaScript keywords from
-  // https://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/xgettext-Invocation.html
-  keywordSpec = keywordSpec || {
-      _: {
-        msgid: 0
-      },
-      gettext: {
-        msgid: 0
-      },
-      dgettext: {
-        msgid: 1
-      },
-      dcgettext: {
-        msgid: 1
-      },
-      ngettext: {
-        msgid: 0,
-        msgid_plural: 1
-      },
-      dngettext: {
-        msgid: 1,
-        msgid_plural: 2
-      },
-      pgettext: {
-        msgctxt: 0,
-        msgid: 1
-      },
-      npgettext: {
-        msgctxt: 0,
-        msgid: 1,
-        msgid_plural: 2
-      },
-      dpgettext: {
-        msgctxt: 1,
-        msgid: 2
-      }
-  };
+  keywordSpec = keywordSpec || Parser.keywordSpec;
 
   Object.keys(keywordSpec).forEach(function (keyword) {
     var positions = keywordSpec[keyword];
@@ -82,6 +48,44 @@ function Parser (keywordSpec) {
 
   this.keywordSpec = keywordSpec;
 }
+
+// default JavaScript keywords from
+// https://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/xgettext-Invocation.html
+Parser.keywordSpec = {
+  _: {
+    msgid: 0
+  },
+  gettext: {
+    msgid: 0
+  },
+  dgettext: {
+    msgid: 1
+  },
+  dcgettext: {
+    msgid: 1
+  },
+  ngettext: {
+    msgid: 0,
+    msgid_plural: 1
+  },
+  dngettext: {
+    msgid: 1,
+    msgid_plural: 2
+  },
+  pgettext: {
+    msgctxt: 0,
+    msgid: 1
+  },
+  npgettext: {
+    msgctxt: 0,
+    msgid: 1,
+    msgid_plural: 2
+  },
+  dpgettext: {
+    msgctxt: 1,
+    msgid: 2
+  }
+};
 
 // Same as what Jed.js uses
 Parser.contextDelimiter = String.fromCharCode(4);
@@ -171,7 +175,13 @@ Parser.prototype.nunjucks = function (template) {
     }
   }
 
-  readNodes(nunjucks.parser.parse(template), matches);  
+  // Add markdown support.
+  var env = nunjucks.configure();
+  marked.setOptions({smartypants: true, gfm: true});
+  nunjucksMarkdown.register(env, marked);
+
+  // Parse nodes.
+  readNodes(nunjucks.parser.parse(template, env.extensionsList), matches);  
   return matches;
 }
 
