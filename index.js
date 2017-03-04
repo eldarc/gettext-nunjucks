@@ -1,6 +1,8 @@
 'use strict';
 
 var nunjucks = require('nunjucks');
+var nunjucksMarkdown = require('nunjucks-markdown');
+const marked = require('marked')
 
 /**
  * Constructor
@@ -173,7 +175,13 @@ Parser.prototype.nunjucks = function (template) {
     }
   }
 
-  readNodes(nunjucks.parser.parse(template), matches);  
+  // Add markdown support.
+  var env = nunjucks.configure();
+  marked.setOptions({smartypants: true, gfm: true});
+  nunjucksMarkdown.register(env, marked);
+
+  // Parse nodes.
+  readNodes(nunjucks.parser.parse(template, env.extensionsList), matches);  
   return matches;
 }
 
