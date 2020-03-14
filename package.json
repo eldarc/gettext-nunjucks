@@ -37,7 +37,7 @@
     "mocha": "^7.1.0"
   },
   "dependencies": {
-    "marked": "^0.3.19",
+    "marked": "^0.8.0",
     "nunjucks": "^3.0.0",
     "nunjucks-markdown": "^2.0.1"
   }
