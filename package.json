@@ -34,7 +34,6 @@
   },
   "homepage": "https://github.com/ministryofprogramming/gettext-nunjucks/gettext-swig",
   "devDependencies": {
-    "eslint": "^3.19.0",
     "mocha": "^7.1.0"
   },
   "dependencies": {
