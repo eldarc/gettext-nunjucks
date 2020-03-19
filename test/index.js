@@ -50,6 +50,24 @@ describe('Parser', function () {
       });
     });
 
+    it('should parse markdown', function (done) {
+      fs.readFile(__dirname + '/fixtures/template.md', {encoding: 'utf8'}, function (err, data) {
+        if (err) {
+          throw err;
+        }
+
+        var result = (new Parser()).parse(data);
+
+        assert.equal(typeof result, 'object');
+        assert('This is a title' in result);
+        assert('This is a paragraph' in result);
+        assert.equal(Object.keys(result).length, 2);
+        assert.equal(result['This is a paragraph'].line, 2);
+
+        done();
+      });
+    });
+
     it('should return plural results', function (done) {
       fs.readFile(__dirname + '/fixtures/plural.njk', {encoding: 'utf8'}, function (err, data) {
         if (err) {
@@ -101,7 +119,7 @@ describe('Parser', function () {
         done();
       });
     });
-  
+
     it('should pass the comprehensive test', function (done) {
         fs.readFile(__dirname + '/fixtures/comprehensive.njk', {encoding: 'utf8'}, function (err, data) {
           if (err) {
